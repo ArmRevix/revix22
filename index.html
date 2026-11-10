@@ -4,395 +4,62 @@
     <meta charset="UTF-8">
     <title>REVIX RP Launcher</title>
     <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-        }
-
-        body {
-            background-color: #07080a;
-            color: #ffffff;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden;
-        }
-
-        .launcher-container {
-            width: 920px;
-            height: 530px;
-            background-color: #0f1118;
-            border-radius: 14px;
-            display: flex;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), 0 0 20px rgba(255, 153, 0, 0.15);
-            overflow: hidden;
-            border: 1px solid rgba(255, 153, 0, 0.2);
-            position: relative;
-            transition: opacity 0.5s ease;
-        }
-
-        /* Ձախ նավիգացիոն սյունակ */
-        .nav-bar {
-            width: 70px;
-            background-color: #0b0c12;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding-top: 15px;
-            border-right: 1px solid rgba(255, 255, 255, 0.05);
-            justify-content: space-between;
-            padding-bottom: 20px;
-        }
-
-        .nav-top {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .nav-logo {
-            width: 46px;
-            height: 46px;
-            border-radius: 10px;
-            margin-bottom: 20px;
-            border: 2px solid #ff9900;
-            box-shadow: 0 0 15px rgba(255, 153, 0, 0.7);
-            background: linear-gradient(135deg, #1f0c02 0%, #0a0b10 100%);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 26px;
-            font-weight: 900;
-            color: #ff9900;
-        }
-
-        .nav-icon {
-            width: 45px;
-            height: 45px;
-            border-radius: 10px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 20px;
-            color: #8b93a7;
-            cursor: pointer;
-            margin-bottom: 12px;
-            transition: all 0.3s;
-            text-decoration: none;
-        }
-
-        .nav-icon:hover, .nav-icon.active {
-            background-color: rgba(255, 153, 0, 0.15);
-            color: #ff9900;
-        }
-
-        /* Սոցիալական կոճակներ նավիգացիոն սյունակի ներքևում */
-        .social-icons {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-
-        .social-btn {
-            width: 42px;
-            height: 42px;
-            border-radius: 10px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: white;
-            font-size: 18px;
-            text-decoration: none;
-            transition: transform 0.2s, box-shadow 0.2s;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.4);
-        }
-
-        .social-btn:hover {
-            transform: scale(1.08);
-        }
-
-        .discord-btn {
-            background: linear-gradient(135deg, #5865F2, #4752C4);
-        }
-
-        .youtube-btn {
-            background: linear-gradient(135deg, #FF0000, #CC0000);
-        }
-
-        /* Ձախ մենյու */
-        .sidebar {
-            width: 260px;
-            background: linear-gradient(180deg, #131622 0%, #0d0e17 100%);
-            padding: 24px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            border-right: 1px solid rgba(255, 255, 255, 0.08);
-        }
-
-        .logo-area {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .logo {
-            font-size: 24px;
-            color: #ff9900;
-            font-weight: 900;
-            letter-spacing: 2px;
-        }
-
-        .version-text {
-            font-size: 11px;
-            color: #6c757d;
-            font-weight: 600;
-            margin-top: 2px;
-        }
-
-        .input-group label {
-            font-size: 11px;
-            color: #8b93a7;
-            display: block;
-            margin-bottom: 8px;
-            text-transform: uppercase;
-            font-weight: 600;
-        }
-
-        .input-group input {
-            width: 100%;
-            padding: 12px;
-            background-color: #0a0b10;
-            border: 1px solid #232838;
-            border-radius: 8px;
-            color: white;
-            font-size: 13px;
-            outline: none;
-        }
-
-        .server-list h3 {
-            font-size: 12px;
-            color: #8b93a7;
-            margin-bottom: 12px;
-            text-transform: uppercase;
-        }
-
-        .server-card {
-            background: rgba(10, 11, 16, 0.7);
-            padding: 14px;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            border-left: 4px solid #ff9900;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
-        .server-info {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .live-dot {
-            width: 8px;
-            height: 8px;
-            background-color: #2ecc71;
-            border-radius: 50%;
-        }
-
-        .server-num {
-            font-weight: 800;
-            color: #ff9900;
-            font-size: 15px;
-        }
-
-        .online {
-            font-size: 12px;
-            color: #2ecc71;
-            font-weight: 700;
-            background: rgba(46, 204, 113, 0.1);
-            padding: 4px 8px;
-            border-radius: 6px;
-        }
-
-        .action-button {
-            width: 100%;
-            padding: 15px;
-            background: linear-gradient(135deg, #1e6b9e, #2980b9);
-            border: none;
-            border-radius: 8px;
-            color: white;
-            font-size: 15px;
-            font-weight: 800;
-            cursor: pointer;
-            text-transform: uppercase;
-            box-shadow: 0 5px 18px rgba(41, 128, 185, 0.4);
-            transition: all 0.3s ease;
-        }
-
-        .action-button.ready {
-            background: linear-gradient(135deg, #ff9900, #ff6600);
-            box-shadow: 0 5px 20px rgba(255, 153, 0, 0.5);
-        }
-
-        .main-content {
-            flex: 1;
-            background: linear-gradient(180deg, rgba(15, 17, 24, 0.3) 0%, rgba(15, 17, 24, 0.85) 100%), 
-                        url('https://images.wallpaperscraft.com/image/single/city_night_street_139982_1280x720.jpg') center/cover no-repeat;
-            padding: 35px;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-end;
-            position: relative;
-        }
-
-        .page {
-            display: none;
-            height: 100%;
-            flex-direction: column;
-            justify-content: flex-end;
-        }
-
-        .page.active {
-            display: flex;
-        }
-
-        .news-banner h2 {
-            font-size: 24px;
-            font-weight: 800;
-            margin-bottom: 18px;
-            color: #fff;
-        }
-
-        /* Գրաֆիկայի ընտրության ոճերը կարգավորումների էջում */
-        .settings-content h2 {
-            font-size: 22px;
-            margin-bottom: 15px;
-            color: #ff9900;
-        }
-
-        .graphics-options {
-            display: flex;
-            gap: 12px;
-            margin-top: 10px;
-        }
-
-        .gfx-btn {
-            flex: 1;
-            padding: 12px;
-            background: rgba(10, 11, 16, 0.8);
-            border: 2px solid #232838;
-            border-radius: 8px;
-            color: #8b93a7;
-            font-weight: 700;
-            cursor: pointer;
-            text-align: center;
-            transition: all 0.3s;
-        }
-
-        .gfx-btn.active, .gfx-btn:hover {
-            border-color: #ff9900;
-            color: #fff;
-            background: rgba(255, 153, 0, 0.15);
-        }
-
-        .progress-container {
-            background: rgba(13, 14, 22, 0.85);
-            padding: 14px 18px;
-            border-radius: 10px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .progress-bar-bg {
-            width: 100%;
-            height: 10px;
-            background-color: rgba(255, 255, 255, 0.08);
-            border-radius: 5px;
-            overflow: hidden;
-            margin-bottom: 8px;
-        }
-
-        .progress-bar {
-            width: 0%;
-            height: 100%;
-            background: linear-gradient(90deg, #ff9900, #ff5500);
-            border-radius: 5px;
-            transition: width 0.3s;
-        }
-
-        #statusText {
-            font-size: 12px;
-            color: #a0a7ba;
-            font-weight: 600;
-        }
-
-        /* Բեռնման էկրանը հենց քո նկարով */
-        #spring-loading-screen {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background: url('https://res.cloudinary.com/ptklpvoe/image/upload/f_auto,q_auto/1790') center/cover no-repeat;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-end;
-            align-items: center;
-            padding-bottom: 50px;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.8s ease-in-out;
-            z-index: 99999;
-        }
-
-        #spring-loading-screen.active {
-            opacity: 1;
-            pointer-events: auto;
-        }
-
-        .spring-loader-container {
-            width: 75%;
-            max-width: 420px;
-            background: rgba(0, 0, 0, 0.85);
-            border-radius: 12px;
-            padding: 10px 15px;
-            box-shadow: 0 0 30px rgba(255, 100, 0, 0.7);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-        }
-
-        .spring-loader-bar-bg {
-            width: 100%;
-            height: 12px;
-            background-color: rgba(255, 255, 255, 0.15);
-            border-radius: 6px;
-            overflow: hidden;
-            margin-bottom: 8px;
-        }
-
-        .spring-loader-bar {
-            height: 100%;
-            width: 0%;
-            background: linear-gradient(90deg, #ff6600, #ffcc00);
-            border-radius: 6px;
-            transition: width 0.1s linear;
-        }
-
-        .spring-loader-text {
-            color: #ffffff;
-            font-size: 14px;
-            font-weight: bold;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.9);
-            text-align: center;
-            margin-top: 8px;
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Roboto, sans-serif; }
+        body { background-color: #07080a; color: #ffffff; height: 100vh; display: flex; justify-content: center; align-items: center; overflow: hidden; }
+        .launcher-container { width: 920px; height: 530px; background-color: #0f1118; border-radius: 14px; display: flex; box-shadow: 0 20px 50px rgba(0,0,0,0.8); border: 1px solid rgba(255,153,0,0.2); position: relative; transition: opacity 0.5s ease; }
+        .nav-bar { width: 70px; background-color: #0b0c12; display: flex; flex-direction: column; align-items: center; padding-top: 15px; border-right: 1px solid rgba(255,255,255,0.05); justify-content: space-between; padding-bottom: 20px; }
+        .nav-top { display: flex; flex-direction: column; align-items: center; }
+        .nav-logo { width: 46px; height: 46px; border-radius: 10px; margin-bottom: 20px; border: 2px solid #ff9900; background: linear-gradient(135deg, #1f0c02 0%, #0a0b10 100%); display: flex; justify-content: center; align-items: center; font-size: 26px; font-weight: 900; color: #ff9900; }
+        .nav-icon { width: 45px; height: 45px; border-radius: 10px; display: flex; justify-content: center; align-items: center; font-size: 20px; color: #8b93a7; cursor: pointer; margin-bottom: 12px; transition: all 0.3s; text-decoration: none; }
+        .nav-icon:hover, .nav-icon.active { background-color: rgba(255,153,0,0.15); color: #ff9900; }
+        .social-icons { display: flex; flex-direction: column; gap: 8px; }
+        .social-btn { width: 42px; height: 42px; border-radius: 10px; display: flex; justify-content: center; align-items: center; color: white; font-size: 18px; text-decoration: none; }
+        .discord-btn { background: #5865F2; }
+        .youtube-btn { background: #FF0000; }
+        .sidebar { width: 260px; background: #131622; padding: 24px; display: flex; flex-direction: column; justify-content: space-between; }
+        .logo { font-size: 24px; color: #ff9900; font-weight: 900; letter-spacing: 2px; }
+        .version-text { font-size: 11px; color: #6c757d; font-weight: 600; }
+        .input-group label { font-size: 11px; color: #8b93a7; display: block; margin-bottom: 8px; text-transform: uppercase; font-weight: 600; }
+        .input-group input { width: 100%; padding: 12px; background-color: #0a0b10; border: 1px solid #232838; border-radius: 8px; color: white; font-size: 13px; outline: none; }
+        .input-group input.error { border-color: #e74c3c; }
+        .server-card { background: rgba(10,11,16,0.7); padding: 14px; border-radius: 8px; display: flex; align-items: center; justify-content: space-between; border-left: 4px solid #ff9900; }
+        .live-dot { width: 8px; height: 8px; background-color: #2ecc71; border-radius: 50%; }
+        .server-num { font-weight: 800; color: #ff9900; font-size: 15px; }
+        .online { font-size: 12px; color: #2ecc71; font-weight: 700; background: rgba(46,204,113,0.1); padding: 4px 8px; border-radius: 6px; }
+        .action-button { width: 100%; padding: 15px; background: #2980b9; border: none; border-radius: 8px; color: white; font-size: 15px; font-weight: 800; cursor: pointer; text-transform: uppercase; }
+        .action-button.ready { background: #ff9900; }
+        .main-content { flex: 1; background: url('https://images.wallpaperscraft.com/image/single/city_night_street_139982_1280x720.jpg') center/cover no-repeat; padding: 35px; display: flex; flex-direction: column; justify-content: flex-end; position: relative; }
+        .page { display: none; height: 100%; flex-direction: column; justify-content: flex-end; }
+        .page.active { display: flex; }
+        .news-banner h2 { font-size: 24px; font-weight: 800; margin-bottom: 18px; color: #fff; }
+        .settings-content h2 { font-size: 22px; margin-bottom: 15px; color: #ff9900; }
+        .graphics-options { display: flex; gap: 12px; margin-top: 10px; }
+        .gfx-btn { flex: 1; padding: 12px; background: rgba(10,11,16,0.8); border: 2px solid #232838; border-radius: 8px; color: #8b93a7; font-weight: 700; cursor: pointer; text-align: center; }
+        .gfx-btn.active, .gfx-btn:hover { border-color: #ff9900; color: #fff; background: rgba(255,153,0,0.15); }
+        .progress-container { background: rgba(13,14,22,0.85); padding: 14px 18px; border-radius: 10px; }
+        .progress-bar-bg { width: 100%; height: 10px; background-color: rgba(255,255,255,0.08); border-radius: 5px; overflow: hidden; margin-bottom: 8px; }
+        .progress-bar { width: 0%; height: 100%; background: #ff9900; border-radius: 5px; transition: width 0.3s; }
+        #statusText { font-size: 12px; color: #a0a7ba; font-weight: 600; }
+        
+        #spring-loading-screen { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: url('https://res.cloudinary.com/ptklpvoe/image/upload/f_auto,q_auto/1790') center/cover no-repeat; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; padding-bottom: 50px; opacity: 0; pointer-events: none; transition: opacity 0.8s ease; z-index: 99999; }
+        #spring-loading-screen.active { opacity: 1; pointer-events: auto; }
+        .spring-loader-container { width: 75%; max-width: 420px; background: rgba(0,0,0,0.85); border-radius: 12px; padding: 10px 15px; border: 1px solid rgba(255,255,255,0.3); }
+        .spring-loader-bar-bg { width: 100%; height: 12px; background-color: rgba(255,255,255,0.15); border-radius: 6px; overflow: hidden; margin-bottom: 8px; }
+        .spring-loader-bar { height: 100%; width: 0%; background: #ff6600; border-radius: 6px; }
+        .spring-loader-text { color: #ffffff; font-size: 14px; font-weight: bold; text-align: center; margin-top: 8px; }
+        
+        #auth-modal { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(7,8,10,0.85); display: flex; justify-content: center; align-items: center; z-index: 100000; opacity: 0; pointer-events: none; transition: opacity 0.4s ease; }
+        #auth-modal.active { opacity: 1; pointer-events: auto; }
+        .auth-box { width: 380px; background: #131622; border: 1px solid rgba(255,153,0,0.3); border-radius: 14px; padding: 30px; display: flex; flex-direction: column; gap: 15px; }
+        .auth-box h2 { color: #ff9900; font-size: 20px; text-align: center; }
+        .auth-box p { color: #a0a7ba; font-size: 12px; text-align: center; }
+        .auth-field label { font-size: 11px; color: #8b93a7; display: block; margin-bottom: 5px; text-transform: uppercase; }
+        .auth-field input { width: 100%; padding: 10px 12px; background-color: #0a0b10; border: 1px solid #232838; border-radius: 8px; color: white; outline: none; }
+        .auth-btn { width: 100%; padding: 12px; background: #ff9900; border: none; border-radius: 8px; color: white; font-size: 14px; font-weight: 800; cursor: pointer; text-transform: uppercase; }
     </style>
 </head>
 <body>
     <div id="launcherContainer" class="launcher-container">
-        <!-- Ձախ նավիգացիոն սյունակ -->
         <div class="nav-bar">
             <div class="nav-top">
                 <div class="nav-logo">R</div>
@@ -400,8 +67,8 @@
                 <div id="settingsNavBtn" class="nav-icon" title="Настройки графики">⚙️</div>
             </div>
             <div class="social-icons">
-                <a href="https://discord.gg/u6NAar7j2" target="_blank" class="social-btn discord-btn" title="Discord">💬</a>
-                <a href="https://www.youtube.com/@armrevix" target="_blank" class="social-btn youtube-btn" title="YouTube">▶</a>
+                <a href="https://discord.gg/u6NAar7j2" target="_blank" class="social-btn discord-btn">💬</a>
+                <a href="https://www.youtube.com/@armrevix" target="_blank" class="social-btn youtube-btn">▶</a>
             </div>
         </div>
 
@@ -410,28 +77,24 @@
                 <h1 class="logo">REVIX RP</h1>
                 <span class="version-text">Version 1.0.0</span>
             </div>
-            
             <div class="input-group">
                 <label for="nickname">ВАШ НИКНЕЙМ</label>
                 <input type="text" id="nickname" placeholder="Name_Surname">
             </div>
-
             <div class="server-list">
-                <h3>СЕРВЕРЫ</h3>
+                <h3 style="font-size: 12px; color: #8b93a7; margin-bottom: 12px;">СЕРВЕРЫ</h3>
                 <div class="server-card">
-                    <div class="server-info">
+                    <div style="display: flex; align-items: center; gap: 10px;">
                         <div class="live-dot"></div>
                         <span class="server-num">01</span>
                     </div>
                     <span id="onlineCount" class="online">0/1000</span>
                 </div>
             </div>
-
             <button id="mainBtn" class="action-button">СКАЧАТЬ</button>
         </div>
 
         <div class="main-content">
-            <!-- Գլխավոր էջ -->
             <div id="homePage" class="page active">
                 <div class="news-banner">
                     <h2>ДОБРО ПОЖАЛОВАТЬ НА REVIX RP</h2>
@@ -444,7 +107,6 @@
                 </div>
             </div>
 
-            <!-- Կարգավորումների (Գրաֆիկայի) էջ -->
             <div id="settingsPage" class="page">
                 <div class="settings-content">
                     <h2>НАСТРОЙКА ГРАФИКИ</h2>
@@ -459,7 +121,6 @@
         </div>
     </div>
 
-    <!-- Բեռնման էկրանը -->
     <div id="spring-loading-screen">
         <div class="spring-loader-container">
             <div class="spring-loader-bar-bg">
@@ -469,6 +130,36 @@
         </div>
     </div>
 
+    <div id="auth-modal">
+        <div class="auth-box">
+            <h2 id="authTitle">РЕГИСТРАЦИЯ</h2>
+            <p id="authSubtitle">Введите данные персонажа</p>
+            
+            <div id="registerFields">
+                <div class="auth-field" style="margin-bottom: 10px;">
+                    <label>Gmail адрес</label>
+                    <input type="email" id="authEmail" placeholder="example@gmail.com">
+                </div>
+                <div class="auth-field" style="margin-bottom: 10px;">
+                    <label>Пароль</label>
+                    <input type="password" id="authPass" placeholder="••••••••">
+                </div>
+                <div class="auth-field">
+                    <label>Повторите пароль</label>
+                    <input type="password" id="authPassConfirm" placeholder="••••••••">
+                </div>
+            </div>
+
+            <div id="loginFields" style="display: none;">
+                <div class="auth-field">
+                    <label>Пароль от аккаунта</label>
+                    <input type="password" id="loginPass" placeholder="••••••••">
+                </div>
+            </div>
+
+            <button id="authSubmitBtn" class="auth-btn">Подтвердить</button>
+        </div>
+    </div>
     <script>
         const mainBtn = document.getElementById('mainBtn');
         const nicknameInput = document.getElementById('nickname');
@@ -481,18 +172,27 @@
         const settingsNavBtn = document.getElementById('settingsNavBtn');
         const homePage = document.getElementById('homePage');
         const settingsPage = document.getElementById('settingsPage');
-
         const gfxBtns = document.querySelectorAll('.gfx-btn');
 
         const springLoadingScreen = document.getElementById('spring-loading-screen');
         const springLoaderBar = document.getElementById('springLoaderBar');
         const springLoaderText = document.getElementById('springLoaderText');
 
+        const authModal = document.getElementById('auth-modal');
+        const authTitle = document.getElementById('authTitle');
+        const authSubtitle = document.getElementById('authSubtitle');
+        const registerFields = document.getElementById('registerFields');
+        const loginFields = document.getElementById('loginFields');
+        const authEmail = document.getElementById('authEmail');
+        const authPass = document.getElementById('authPass');
+        const authPassConfirm = document.getElementById('authPassConfirm');
+        const loginPass = document.getElementById('loginPass');
+        const authSubmitBtn = document.getElementById('authSubmitBtn');
+
         let isDownloaded = false; 
         let currentOnline = 0; 
-        let isInGame = false;    
+        let savedNickname = '';
 
-        // Նավիգացիոն կոճակների փոխարկում (Գլխավոր / Կարգավորումներ)
         homeNavBtn.addEventListener('click', () => {
             homeNavBtn.classList.add('active');
             settingsNavBtn.classList.remove('active');
@@ -507,7 +207,6 @@
             homePage.classList.remove('active');
         });
 
-        // Գրաֆիկայի կոճակների ընտրություն
         gfxBtns.forEach(btn => {
             btn.addEventListener('click', () => {
                 gfxBtns.forEach(b => b.classList.remove('active'));
@@ -515,13 +214,17 @@
             });
         });
 
+        nicknameInput.addEventListener('input', () => {
+            nicknameInput.classList.remove('error');
+        });
+
         mainBtn.addEventListener('click', () => {
             const nickname = nicknameInput.value.trim();
 
             if (!isDownloaded) {
+                // Սկզբնական «СКАЧАТЬ» կոճակի բեռնումը (արագ)
                 mainBtn.disabled = true;
                 statusText.innerText = 'Загрузка файлов игры... 0%';
-                
                 let progress = 0;
                 const interval = setInterval(() => {
                     progress += 10;
@@ -531,18 +234,16 @@
                     if (progress >= 100) {
                         clearInterval(interval);
                         isDownloaded = true;
-                        
                         mainBtn.innerText = 'ИГРАТЬ';
                         mainBtn.classList.add('ready');
                         mainBtn.disabled = false;
                         statusText.innerText = 'Готов к игре';
                     }
-                }, 300);
+                }, 150); // Արագ ինտերվալ
 
             } else {
-                const cleanRegex = /^[A-Za-z]+_[A-Za-z]+$/;
-
-                if (!nickname || !cleanRegex.test(nickname)) {
+                const nickRegex = /^[A-Z][a-z]+_[A-Z][a-z]+$/;
+                if (!nickname || !nickRegex.test(nickname)) {
                     nicknameInput.classList.add('error');
                     nicknameInput.value = '';
                     nicknameInput.placeholder = 'Format: Name_Surname';
@@ -550,44 +251,85 @@
                     return;
                 }
 
-                if (!isInGame) {
-                    isInGame = true;
-                    currentOnline += 1;
-                    onlineCount.innerText = currentOnline + '/1000';
+                savedNickname = nickname;
 
-                    // 1. Թաքցնում ենք լաունչերը
-                    launcherContainer.style.opacity = '0';
-                    setTimeout(() => {
-                        launcherContainer.style.display = 'none';
-                    }, 500);
-
-                    // 2. Միացնում ենք բեռնման էկրանը
+                // Թաքցնում ենք լաունչերը և միացնում նկարով բեռնման էկրանը
+                launcherContainer.style.opacity = '0';
+                setTimeout(() => {
+                    launcherContainer.style.display = 'none';
                     springLoadingScreen.classList.add('active');
+                }, 500);
 
-                    let springProgress = 0;
-                    const totalTime = 12000; // 12 վարկյան
-                    const intervalTime = 100;
-                    const increment = (intervalTime / totalTime) * 100;
+                let springProgress = 0;
+                // «ИГРАТЬ» սեղմելուց հետո նկարի տակի գծի բեռնումը (չափավոր դանդաղ, ոչ շատ դանդաղ)
+                const springInterval = setInterval(() => {
+                    springProgress += 2;
+                    springLoaderBar.style.width = springProgress + '%';
+                    springLoaderText.innerText = `Загрузка весеннего обновления... ${springProgress}%`;
 
-                    const springInterval = setInterval(() => {
-                        springProgress += increment;
+                    if (springProgress >= 100) {
+                        clearInterval(springInterval);
+                        springLoaderText.innerText = 'Загрузка завершена!';
+                        
+                        // 2 վարկյան հետո էկրանը կորում է և բացվում է լոգինը/գրանցումը
+                        setTimeout(() => {
+                            springLoadingScreen.classList.remove('active');
 
-                        if (springProgress >= 100) {
-                            springProgress = 100;
-                            clearInterval(springInterval);
-                            springLoaderText.innerText = 'Загрузка завершена! Вход в игру...';
-                            
-                            setTimeout(() => {
-                                alert('Добро пожаловать в игру, ' + nickname + '!');
-                            }, 500);
-                        }
+                            const existingUser = localStorage.getItem('revix_user_' + savedNickname);
+                            if (existingUser) {
+                                authTitle.innerText = 'ВХОД В АККАУНТ';
+                                authSubtitle.innerText = 'Введите пароль для входа';
+                                registerFields.style.display = 'none';
+                                loginFields.style.display = 'block';
+                            } else {
+                                authTitle.innerText = 'РЕГИСТРАЦИЯ';
+                                authSubtitle.innerText = 'Создайте новый аккаунт';
+                                registerFields.style.display = 'block';
+                                loginFields.style.display = 'none';
+                            }
 
-                        springLoaderBar.style.width = springProgress + '%';
-                        springLoaderText.innerText = `Загрузка весеннего обновления... ${Math.floor(springProgress)}%`;
-                    }, intervalTime);
-                }
+                            authModal.classList.add('active');
+                        }, 2000);
+                    }
+                }, 120); // Չափավոր դանդաղ արագություն
             }
+        });
+
+        authSubmitBtn.addEventListener('click', () => {
+            const existingUserRaw = localStorage.getItem('revix_user_' + savedNickname);
+
+            if (existingUserRaw) {
+                const userData = JSON.parse(existingUserRaw);
+                if (loginPass.value.trim() !== userData.password) {
+                    alert('Неверный пароль!');
+                    return;
+                }
+            } else {
+                const email = authEmail.value.trim();
+                const pass = authPass.value.trim();
+                if (!email.includes('@') || pass.length < 4 || pass !== authPassConfirm.value.trim()) {
+                    alert('Проверьте правильность введенных данных!');
+                    return;
+                }
+                localStorage.setItem('revix_user_' + savedNickname, JSON.stringify({ email, password: pass }));
+            }
+
+            authModal.classList.remove('active');
+            currentOnline += 1;
+            onlineCount.innerText = currentOnline + '/1000';
+            alert('Добро пожаловать в игру, ' + savedNickname + '!');
+
+            launcherContainer.style.display = 'flex';
+            setTimeout(() => { launcherContainer.style.opacity = '1'; }, 50);
+            nicknameInput.value = '';
+            loginPass.value = '';
+            authEmail.value = '';
+            authPass.value = '';
+            authPassConfirm.value = '';
+            mainBtn.innerText = 'СКАЧАТЬ';
+            mainBtn.classList.remove('ready');
+            isDownloaded = false;
         });
     </script>
 </body>
-                          </html>
+</html>
