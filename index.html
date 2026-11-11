@@ -126,8 +126,7 @@
             </div>
         </div>
     </div>
-
-    <div id="spring-loading-screen">
+        <div id="spring-loading-screen">
         <div class="spring-loader-container">
             <div class="spring-loader-bar-bg">
                 <div class="spring-loader-bar" id="springLoaderBar"></div>
@@ -169,6 +168,7 @@
             <button id="loginSubmitBtn" class="radmir-btn">ВОЙТИ В ИГРУ</button>
         </div>
     </div>
+
     <script>
         const CURRENT_VERSION = '1.0.0';
 
@@ -200,12 +200,10 @@
         const loginPass = document.getElementById('loginPass');
         const loginSubmitBtn = document.getElementById('loginSubmitBtn');
 
-        let currentOnline = 0; 
         let savedNickname = '';
 
         versionText.innerText = 'Version ' + CURRENT_VERSION;
 
-        // ԱՎՏՈՄԱՏ ՎԵՐԱԿԱՆԳՆՈՒՄ ԵՆՔ ՊԱՀՊԱՆՎԱԾ ՆԻԿԸ
         const savedNick = localStorage.getItem('revix_last_nickname');
         if (savedNick) {
             nicknameInput.value = savedNick;
@@ -265,7 +263,6 @@
             }
 
             savedNickname = nickname;
-            // ՀԻՇՈՒՄ ԵՆՔ ՆԻԿԸ ՀԵՌԱԽՈՍԻ ՀԻՇՈՂՈՒԹՅԱՆ ՄԵՋ (ՄՆՈՒՄ Է ԱՆՓՈՓՈԽ)
             localStorage.setItem('revix_last_nickname', nickname);
 
             const btnState = mainBtn.innerText;
@@ -337,27 +334,34 @@
                 function step3() {
                     const t3 = setInterval(() => {
                         p += 1;
-                        if (p >= 90) {
-                            p = 90;
+                        if (p >= 100) {
+                            p = 100;
                             clearInterval(t3);
                             springLoaderBar.style.width = p + '%';
-                                 setTimeout(() => { launcherContainer.style.opacity = '1'; }, 50);
-            
-            // ՄԱՔՐՄԱՆ ԺԱՄԱՆԱԿ ՆԻԿԸ ՉԵՆՔ ՋՆՋՈՒՄ, ԱՅԼ ՎԵՐԱԿԱՆԳՆՈՒՄ ԵՆՔ ՀԻՇՈՂՈՒԹՅՈՒՆԻՑ
-            const currentSavedNick = localStorage.getItem('revix_last_nickname');
-            if (currentSavedNick) {
-                nicknameInput.value = currentSavedNick;
-            }
+                            springLoaderText.innerText = `Загрузка весеннего обновления... ${p}%`;
+                            
+                            setTimeout(() => {
+                                springLoadingScreen.classList.remove('active');
+                                springLoadingScreen.style.display = 'none';
+                                launcherContainer.style.display = 'flex';
+                                setTimeout(() => { launcherContainer.style.opacity = '1'; }, 50);
+                                
+                                const currentSavedNick = localStorage.getItem('revix_last_nickname');
+                                if (currentSavedNick) {
+                                    nicknameInput.value = currentSavedNick;
+                                }
+                                statusText.innerText = 'Готов к игре';
+                            }, 500);
+                            return;
+                        }
+                        springLoaderBar.style.width = p + '%';
+                        springLoaderText.innerText = `Загрузка весеннего обновления... ${p}%`;
+                    }, 30);
+                }
 
-            regEmail.value = '';
-            regPass.value = '';
-            regPassConfirm.value = '';
-            loginPass.value = '';
-            
-            mainBtn.innerText = 'ИГРАТЬ';
-            mainBtn.classList.add('ready');
-            mainBtn.classList.remove('update');
-        }
+                step1();
+            }
+        });
     </script>
 </body>
 </html>
