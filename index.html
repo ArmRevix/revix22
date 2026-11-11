@@ -169,7 +169,6 @@
             <button id="loginSubmitBtn" class="radmir-btn">ВОЙТИ В ИГРУ</button>
         </div>
     </div>
-
     <script>
         const CURRENT_VERSION = '1.0.0';
 
@@ -205,6 +204,13 @@
         let savedNickname = '';
 
         versionText.innerText = 'Version ' + CURRENT_VERSION;
+
+        // ԱՎՏՈՄԱՏ ՎԵՐԱԿԱՆԳՆՈՒՄ ԵՆՔ ՊԱՀՊԱՆՎԱԾ ՆԻԿԸ
+        const savedNick = localStorage.getItem('revix_last_nickname');
+        if (savedNick) {
+            nicknameInput.value = savedNick;
+            savedNickname = savedNick;
+        }
 
         const savedVersion = localStorage.getItem('revix_installed_version');
 
@@ -259,6 +265,9 @@
             }
 
             savedNickname = nickname;
+            // ՀԻՇՈՒՄ ԵՆՔ ՆԻԿԸ ՀԵՌԱԽՈՍԻ ՀԻՇՈՂՈՒԹՅԱՆ ՄԵՋ (ՄՆՈՒՄ Է ԱՆՓՈՓՈԽ)
+            localStorage.setItem('revix_last_nickname', nickname);
+
             const btnState = mainBtn.innerText;
 
             if (btnState === 'СКАЧАТЬ' || btnState === 'ОБНОВИТЬ') {
@@ -332,11 +341,23 @@
                             p = 90;
                             clearInterval(t3);
                             springLoaderBar.style.width = p + '%';
-                            springLoaderText.innerText = `Загрузка весеннего обновления... ${p}%`;
-                            setTimeout(step4, 3000);
-                            return;
-                        }
-                        springLoaderBar.style.width = p + '%';
-                        springLoaderText.innerText = `Загрузка весеннего обновления... ${p}%`;
-                    }, 60);
-    
+                                 setTimeout(() => { launcherContainer.style.opacity = '1'; }, 50);
+            
+            // ՄԱՔՐՄԱՆ ԺԱՄԱՆԱԿ ՆԻԿԸ ՉԵՆՔ ՋՆՋՈՒՄ, ԱՅԼ ՎԵՐԱԿԱՆԳՆՈՒՄ ԵՆՔ ՀԻՇՈՂՈՒԹՅՈՒՆԻՑ
+            const currentSavedNick = localStorage.getItem('revix_last_nickname');
+            if (currentSavedNick) {
+                nicknameInput.value = currentSavedNick;
+            }
+
+            regEmail.value = '';
+            regPass.value = '';
+            regPassConfirm.value = '';
+            loginPass.value = '';
+            
+            mainBtn.innerText = 'ИГРАТЬ';
+            mainBtn.classList.add('ready');
+            mainBtn.classList.remove('update');
+        }
+    </script>
+</body>
+</html>
